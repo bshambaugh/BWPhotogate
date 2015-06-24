@@ -19,7 +19,7 @@ void setup() {
   pinMode(A1, INPUT);
   pinMode(A2, INPUT);
   
-  distance=1;
+  distance=0.01;
   
   lcd.setCursor(0, 0);
   lcd.print("Photogate");
@@ -32,33 +32,31 @@ void loop() {
   photogate=digitalRead(A1);
   photogate2 = digitalRead(A2);
   
-  if((photogate==1))
+  if((photogate==0))
   {
-    
+    lcd.setCursor(7,0);
+    lcd.print("*");
     time = micros();
     
   }
- 
   
-  if((photogate2==1)&&(time2 > 1))
-    {
-  time2 = micros();  
-  time3 = time2 - time;
-  Serial.println(time3);
-  photogate2=0;
-  lcd.setCursor(0, 0);
-  lcd.print("time");
-  lcd.setCursor(0, 1);
-  lcd.print(time3);
+  if((photogate2==0))
+  {
+    lcd.setCursor(7,1);
+    lcd.print("*");
+    time2 = micros();
     
-  speed=1000.0*distance/(time3);
+  }
+ 
+  time3 = (time2 - time)/1000000.0;
   
-  lcd.setCursor(9, 0);
-  lcd.print("m/s");
-  lcd.setCursor(9, 1);
-  lcd.print(speed);
-  time2=0;
-    }
+  speed=distance/(time3);
+  
+  lcd.setCursor(0,0);
+  lcd.print(time3); 
+  
+  lcd.setCursor(0,1);
+  lcd.print(speed); 
 
 }
 
