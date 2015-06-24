@@ -7,9 +7,9 @@ int photogate;
 int photogate2;
 unsigned long time;
 unsigned long time2;
-unsigned long time3;
-int distance;
-int speed;
+float time3;
+float distance;
+float velocity;
 
 void setup() {
   // set up the LCD's number of columns and rows:
@@ -19,7 +19,7 @@ void setup() {
   pinMode(A1, INPUT);
   pinMode(A2, INPUT);
   
-  distance=0.01;
+  distance=1;
   
   lcd.setCursor(0, 0);
   lcd.print("Photogate");
@@ -48,16 +48,24 @@ void loop() {
     
   }
  
-  time3 = (time2 - time)/1000000.0;
+  time3=time2/1000000.0 - time/1000000.0;
   
-  speed=distance/(time3);
+  velocity=distance/(time3);
   
   lcd.setCursor(0,0);
-  lcd.print(time3); 
+  lcd.print(time/1000000.0);
   
   lcd.setCursor(0,1);
-  lcd.print(speed); 
-
+  lcd.print(time2/1000000.0);
+ // lcd.setCursor(0,0);
+ // lcd.print(time3); 
+  
+ // lcd.setCursor(0,1);
+ //lcd.print(speed); 
+ 
+ lcd.setCursor(10,1);
+// lcd.print((time2/1000000.0 - time/1000000.0));
+   lcd.print(velocity);
 }
 
 
